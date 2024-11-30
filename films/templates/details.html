@@ -1,0 +1,20 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Films</title>
+  </head>
+
+  <body>
+    <h1>Film Details!</h1>
+    <div>
+      <h3>{{film.name}}</h3>
+      <p>Genre: {{film.genre}}</p>
+      <p>Author: {{film.author.firstName}} {{film.author.lastName}}</p>
+      <p>Year: {{film.year}}</p>
+      <p>Country: {{film.author.country}}</p>
+      <p>Website: <a href="https://{{film.website}}">{{film.website}}</a></p>
+      <p>Budget: {{film.budget}}$</p>
+    </div>
+  </body>
+</html>

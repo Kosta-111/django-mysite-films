@@ -2,7 +2,8 @@ from django.urls import path
 from films import views
 
 urlpatterns = [
-    path('home/', views.home),
+    path('', views.index, name = 'index'),
+    path('create/', views.upload, name = 'create'),
     path('details/<int:id>', views.details),
-    path('', views.home)
+    path('delete/<int:id>', views.delete, name = 'delete')
 ]

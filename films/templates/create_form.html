@@ -1,0 +1,18 @@
+{% extends 'index.html' %} {% block content %}
+<div class="text-center">
+  <h1 class="display-3">Upload Film</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <table class="table table-borderless">
+      {% for field in form %}
+      <tr>
+        <th class="text-end">{{field.label}}</th>
+        <td class="text-start">{{ field }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <button type="submit" class="btn btn-primary w-50">Submit</button>
+  </form>
+</div>
+{% endblock %}

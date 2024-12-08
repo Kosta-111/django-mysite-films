@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from films.forms import FilmCreate
+from films.models import Film
 
 # Create your views here.
-films = [
+""" films = [
   {
     "id": 1,
     "name": "Saw 2",
@@ -43,17 +45,42 @@ films = [
     "budget": 50000000,
   }
 ]
+ """
 
-def home(request):
-    # create HTML response text
-    return render(request, 'home.html', { 'films': films })
+def index(request):
+    films = Film.objects.all
+    return render(request, "index.html", {'films': films})
 
-# GET: details/id
+
+def upload(request):
+    form = FilmCreate()
+    if request.method == 'POST':
+      form = FilmCreate(request.POST)
+      if form.is_valid():
+        form.save()
+        return redirect('index')
+      else:
+        return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+      return render(request, "create_form.html", {'form': form})
+
+
+def delete(request, id):
+    film_id = int(id)
+    try:
+      film = Film.objects.get(id = film_id)
+    except Film.DoesNotExist:
+      return redirect('index')
+    film.delete()
+
+    return redirect('index')
+
+
 def details(request, id):
-    # create HTML response text  
-    for i in films:
-        if (i['id'] == id):
-            film = i
-            break
+    film_id = int(id)
+    try:
+      film = Film.objects.get(id = film_id)
+    except Film.DoesNotExist:
+      return redirect('index')
             
     return render(request, 'details.html', { 'film': film })
